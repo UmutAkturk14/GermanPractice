@@ -1,0 +1,67 @@
+# Sample queries
+#
+# query FlashcardsByTheme {
+#   getFlashcards(theme: "Greetings") {
+#     id
+#     theme
+#     question
+#     answer
+#     correctCount
+#     wrongCount
+#     knowledgeScore
+#   }
+# }
+#
+# query MultipleChoiceAll {
+#   getMultipleChoiceQuestions {
+#     id
+#     theme
+#     question
+#     answer
+#     choices
+#     knowledgeScore
+#   }
+# }
+
+# Sample mutations
+#
+# mutation CreateFlashcard {
+#   createFlashcard(
+#     input: { theme: "School", question: "German for classroom?", answer: "das Klassenzimmer" }
+#   ) {
+#     id
+#     question
+#   }
+# }
+#
+# mutation CreateMultipleChoice {
+#   createMultipleChoiceQuestion(
+#     input: {
+#       theme: "Food"
+#       question: "Choose the correct article for Brot"
+#       answer: "das"
+#       choices: ["der", "die", "das", "den"]
+#     }
+#   ) {
+#     id
+#     question
+#   }
+# }
+#
+# mutation UpdateFlashcardStats {
+#   updateFlashcardStats(id: "FLASHCARD_ID_HERE", correct: true) {
+#     id
+#     correctCount
+#     wrongCount
+#     knowledgeScore
+#   }
+# }
+#
+# mutation UpdateMultipleChoiceStats {
+#   updateMultipleChoiceStats(id: "MULTIPLE_CHOICE_ID_HERE", correct: false) {
+#     id
+#     correctCount
+#     wrongCount
+#     knowledgeScore
+#   }
+# }

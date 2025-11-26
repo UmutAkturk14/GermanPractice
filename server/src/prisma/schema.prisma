@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  // Emit client to workspace root so @prisma/client can forward correctly
+  output   = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Flashcard {
+  id             String   @id @default(uuid())
+  theme          String?
+  level          String?
+  topic          String?
+  question       String
+  answer         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
+  progress     UserProgress[]
+}
+
+model MultipleChoiceQuestion {
+  id             String   @id @default(uuid())
+  theme          String?
+  level          String?
+  topic          String?
+  question       String
+  answer         String
+  choices        String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model UserProgress {
+  id             String   @id @default(uuid())
+  userId         String
+  itemId         String
+  itemType       String
+  correctCount   Int      @default(0)
+  wrongCount     Int      @default(0)
+  successStreak  Int      @default(0)
+  knowledgeScore Float    @default(0)
+  lastReviewed   DateTime @default(now())
+  nextReview     DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, itemId, itemType])
+}
